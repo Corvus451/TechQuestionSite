@@ -17,3 +17,8 @@ resource "aws_eks_addon" "kube_proxy" {
   addon_name   = "kube-proxy"
   # addon_version = "v1.28.15-eksbuild.31"
 }
+
+resource "aws_eks_addon" "pod_identity_agent" {
+  cluster_name      = aws_eks_cluster.this.name
+  addon_name        = "eks-pod-identity-agent"
+}

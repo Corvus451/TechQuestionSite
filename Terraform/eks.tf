@@ -19,7 +19,8 @@ resource "aws_eks_cluster" "this" {
     subnet_ids = [
       aws_subnet.private.id,
       aws_subnet.private-a.id,
-      aws_subnet.public.id
+      aws_subnet.public.id,
+      aws_subnet.public-a.id
     ]
 
   }

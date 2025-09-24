@@ -5,5 +5,17 @@ variable "region" {
 
 variable "project_name" {
   type = string
-  default = "TechQuestionSite"
+  default = "techquestionsite"
+}
+
+variable "db_username" {
+  type = string
+  default = "postgres"
+  sensitive = true
+}
+
+variable "db_password" {
+  type = string
+  default = "postgres"
+  sensitive = true
 }

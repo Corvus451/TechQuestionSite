@@ -8,6 +8,14 @@ variable "project_name" {
   default = "techquestionsite"
 }
 
+variable "bastion_key_name" {
+  type = string
+}
+
+variable "bastion_key_path" {
+  type = string
+}
+
 variable "db_username" {
   type = string
   default = "postgres"

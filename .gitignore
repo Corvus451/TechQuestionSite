@@ -1,2 +1,5 @@
 .env
 node_modules
+secret.tfvars
+.terraform*
+terraform.tfstate*

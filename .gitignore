@@ -1,5 +1,6 @@
 .env
 node_modules
 secret.tfvars
+secret.auto.tfvars
 .terraform*
 terraform.tfstate*

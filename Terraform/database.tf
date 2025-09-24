@@ -1,6 +1,6 @@
 resource "aws_db_instance" "this" {
   identifier = "${var.project_name}-database"
-  db_name = "${var.project_name}-database"
+  db_name = "${var.project_name}-db"
   allocated_storage = 5
   engine = "postgres"
   engine_version = "17.4"
@@ -38,4 +38,19 @@ resource "aws_db_subnet_group" "this" {
   name = "db-subnet-group"
   subnet_ids = [ aws_subnet.private.id, aws_subnet.private-a.id ]
 
+}
+
+resource "terraform_data" "sql_init" {
+  depends_on = [ aws_db_instance.this, aws_instance.bastion ]
+
+  connection {
+    type = "ssh"
+    host = aws_instance.bastion.public_ip
+    user = "ubuntu"
+    private_key = file(var.bastion_key_path)
+  }
+
+  provisioner "remote-exec" {
+    inline = [ "PGPASSWORD=${var.db_password} psql -h ${aws_db_instance.this.address} -U ${var.db_username} -d ${aws_db_instance.this.db_name} -f ../Database/init.sql" ]
+  }
 }

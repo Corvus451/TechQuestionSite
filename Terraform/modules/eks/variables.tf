@@ -19,3 +19,8 @@ variable "vpc_id" {
 variable "subnet_private_ids" {
 type = list(string)
 }
+
+variable "configure_kubectl" {
+  type = bool
+  default = true
+}

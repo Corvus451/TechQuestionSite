@@ -1,7 +1,7 @@
 resource "aws_db_instance" "this" {
   identifier = "${var.project_name}-database"
-  db_name = "${var.project_name}db"
-  allocated_storage = 5
+  db_name = var.database_name
+  allocated_storage = var.storage_size
   engine = "postgres"
   engine_version = "17.4"
   instance_class = "db.t4g.micro"
@@ -16,14 +16,14 @@ resource "aws_db_instance" "this" {
 }
 
 resource "aws_security_group" "db" {
-  vpc_id = aws_vpc.this.id
+  vpc_id = var.vpc_id
   name = "${var.project_name}-db-sec-group"
 
   ingress {
     from_port = 5432
     to_port = 5432
     protocol = "tcp"
-    cidr_blocks = [aws_vpc.this.cidr_block]
+    cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
@@ -36,26 +36,6 @@ resource "aws_security_group" "db" {
 
 resource "aws_db_subnet_group" "this" {
   name = "db-subnet-group"
-  subnet_ids = [ aws_subnet.private.id, aws_subnet.private-a.id ]
+  subnet_ids = var.subnet_private_ids
 
-}
-
-resource "terraform_data" "sql_init" {
-  depends_on = [ aws_db_instance.this, aws_instance.bastion ]
-
-  connection {
-    type = "ssh"
-    host = aws_instance.bastion.public_ip
-    user = "ubuntu"
-    private_key = file(var.bastion_key_path)
-  }
-
-  provisioner "file" {
-    source = "../Database/init.sql"
-    destination = "/home/ubuntu/init.sql"
-  }
-
-  provisioner "remote-exec" {
-    inline = [ "PGPASSWORD=${var.db_password} psql -h ${aws_db_instance.this.address} -U ${var.db_username} -d ${aws_db_instance.this.db_name} -f /home/ubuntu/init.sql" ]
-  }
 }

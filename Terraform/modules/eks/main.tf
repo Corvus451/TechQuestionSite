@@ -47,6 +47,7 @@ resource "aws_iam_role" "cluster" {
 }
 
 resource "terraform_data" "configure_kubectl" {
+  count = var.configure_kubectl ? 1 : 0
   depends_on = [aws_eks_cluster.this]
 
   provisioner "local-exec" {

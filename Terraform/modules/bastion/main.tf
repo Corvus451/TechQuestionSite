@@ -14,12 +14,14 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "bastion" {
-  ami                    = aws_ami.ubuntu.id
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
   subnet_id              = var.subnet_public_id
   vpc_security_group_ids = [aws_security_group.bastion.id]
   key_name               = var.bastion_key_name
   associate_public_ip_address = true
+
+  user_data = var.user_data
 
 #   user_data = <<-EOF
 #               #!/bin/bash

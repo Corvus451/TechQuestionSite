@@ -13,3 +13,7 @@ variable "project_name" {
 variable "vpc_id" {
   type = string
 }
+
+variable "user_data" {
+  type = string
+}

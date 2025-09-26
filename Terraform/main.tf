@@ -21,6 +21,12 @@ module "bastion" {
   subnet_public_id = module.vpc.subnet_public_id
   bastion_key_name = var.bastion_key_name
   project_name = var.project_name
+
+  user_data = <<-EOF
+              #!/bin/bash
+              sudo apt update
+              sudo apt install -y postgresql-client
+              EOF
 }
 
 module "database" {

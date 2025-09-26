@@ -1,6 +1,6 @@
 resource "aws_db_instance" "this" {
   identifier = "${var.project_name}-database"
-  db_name = "${var.project_name}-db"
+  db_name = "${var.project_name}db"
   allocated_storage = 5
   engine = "postgres"
   engine_version = "17.4"
@@ -50,7 +50,12 @@ resource "terraform_data" "sql_init" {
     private_key = file(var.bastion_key_path)
   }
 
+  provisioner "file" {
+    source = "../Database/init.sql"
+    destination = "/home/ubuntu/init.sql"
+  }
+
   provisioner "remote-exec" {
-    inline = [ "PGPASSWORD=${var.db_password} psql -h ${aws_db_instance.this.address} -U ${var.db_username} -d ${aws_db_instance.this.db_name} -f ../Database/init.sql" ]
+    inline = [ "PGPASSWORD=${var.db_password} psql -h ${aws_db_instance.this.address} -U ${var.db_username} -d ${aws_db_instance.this.db_name} -f /home/ubuntu/init.sql" ]
   }
 }

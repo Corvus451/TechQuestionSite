@@ -2,7 +2,7 @@ resource "aws_eks_node_group" "example" {
   cluster_name    = aws_eks_cluster.this.name
   node_group_name = "${var.project_name}-node-group"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = [ aws_subnet.private.id, aws_subnet.private-a.id ]
+  subnet_ids      = var.subnet_private_ids
   instance_types = [ "t3.medium" ]
 
   scaling_config {

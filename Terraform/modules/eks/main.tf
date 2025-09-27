@@ -16,12 +16,7 @@ resource "aws_eks_cluster" "this" {
     # endpoint_private_access = true
     # endpoint_public_access  = true
 
-    subnet_ids = [
-      aws_subnet.private.id,
-      aws_subnet.private-a.id,
-      aws_subnet.public.id,
-      aws_subnet.public-a.id
-    ]
+    subnet_ids = var.subnet_ids
 
   }
 
@@ -52,6 +47,7 @@ resource "aws_iam_role" "cluster" {
 }
 
 resource "terraform_data" "configure_kubectl" {
+  count = var.configure_kubectl ? 1 : 0
   depends_on = [aws_eks_cluster.this]
 
   provisioner "local-exec" {

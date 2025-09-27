@@ -2,5 +2,5 @@
 node_modules
 secret.tfvars
 secret.auto.tfvars
-.terraform*
+.terraform
 terraform.tfstate*

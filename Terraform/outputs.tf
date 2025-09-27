@@ -1,10 +1,10 @@
-output "cluster_endpoint" {
-  value = aws_eks_cluster.this.endpoint
-}
+# output "cluster_endpoint" {
+#   value = aws_eks_cluster.this.endpoint
+# }
 
-output "database_endpoint" {
-  value = aws_db_instance.this.endpoint
-}
+# output "database_endpoint" {
+#   value = aws_db_instance.this.endpoint
+# }
 
 # Output the Ingress address (ALB URL)
 # output "ingress_address" {

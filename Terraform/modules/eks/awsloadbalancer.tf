@@ -20,7 +20,7 @@ resource "aws_iam_role" "aws_lbc" {
 }
 
 resource "aws_iam_policy" "aws_lbc" {
-  policy = file("./awsloadbalancerpolicy.json")
+  policy = file("./modules/eks/awsloadbalancerpolicy.json")
   name   = "AWSLoadBalancerController"
 }
 
@@ -53,7 +53,7 @@ resource "helm_release" "aws_lbc" {
         value = "aws-load-balancer-controller"
     }, {
         name  = "vpcId"
-        value = aws_vpc.this.id
+        value = var.vpc_id
     }
   ]
 

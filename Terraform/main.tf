@@ -60,3 +60,21 @@ resource "terraform_data" "sql_init" {
     inline = [ "PGPASSWORD=${var.db_password} psql -h ${module.database.database_address} -U ${var.db_username} -d ${module.database.db_name} -f /home/ubuntu/init.sql" ]
   }
 }
+
+resource "aws_ecr_repository" "ecr" {
+  name = "${var.aws_ecr_registry_name}/${var.aws_ecr_repository}"
+}
+
+resource "terraform_data" "push_apiserver_image" {
+  depends_on = [ aws_ecr_repository.ecr ]
+
+  provisioner "local-exec" {
+    command = <<EOT
+    aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${var.aws_ecr_registry_name}
+    docker build -t ${var.aws_ecr_repository} ./APIServer
+    docker tag ${var.aws_ecr_repository}:latest ${var.aws_ecr_registry_name}/${var.aws_ecr_repository}:latest
+    docker push ${var.aws_ecr_registry_name}/${var.aws_ecr_repository}:latest
+    EOT
+
+  }
+}

@@ -27,3 +27,11 @@ variable "db_password" {
   default = "postgres"
   sensitive = true
 }
+
+variable "aws_ecr_registry_name" {
+  type = string
+}
+
+variable "aws_ecr_repository" {
+  type = string
+}

@@ -22,16 +22,24 @@ variable "db_username" {
   sensitive = true
 }
 
+variable "db_name" {
+  type = string
+}
+
 variable "db_password" {
   type = string
   default = "postgres"
   sensitive = true
 }
 
-variable "aws_ecr_registry_name" {
+# variable "aws_ecr_registry_name" {
+#   type = string
+# }
+
+variable "aws_ecr_repository" {
   type = string
 }
 
-variable "aws_ecr_repository" {
+variable "aws_account_id" {
   type = string
 }

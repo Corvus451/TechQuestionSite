@@ -107,11 +107,11 @@ resource "kubernetes_ingress_v1" "ingress" {
     rule {
       http {
         path {
-          path      = "/"
+          path      = "/api"
           path_type = "Prefix"
           backend {
             service {
-              name = "apiserver-svc"
+              name = module.pods.apiserver_svc_name
               port {
                 number = 3000
               }

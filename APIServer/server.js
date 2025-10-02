@@ -1,12 +1,12 @@
 const express = require("express");
-const { query } = require('./db');
+const { query } = require("./services/db");
 require('dotenv').config();
 
 // const path = require('path');
 // const fs = require('fs');
 
 const app = express();
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT || 3000;
 
 app.use(express.json());
 
@@ -33,7 +33,7 @@ app.get('/api/questionlist', async (req, res) => {
       res.json(result[0]);
     } catch (error) {
       console.error(error);
-      res.status(500).send(error);
+      res.status(500).send(`Error getting question with id ${id}: ` + error);
     }
   });
 

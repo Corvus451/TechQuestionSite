@@ -4,7 +4,9 @@ const cookieParser = require("cookie-parser");
 
 const {
     authenticate,
-    register
+    register,
+    login,
+    logout
 } = require("./controller/auth");
 
 const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config");
@@ -16,9 +18,10 @@ app.use(cookieParser());
 
 
 // endpoints
-
 app.post(ENDPOINT_PREFIX + "/authenticate", authenticate);
 app.post(ENDPOINT_PREFIX + "/register", register);
+app.post(ENDPOINT_PREFIX + "/login", login);
+app.post(ENDPOINT_PREFIX + "/logout", logout);
 
 
 

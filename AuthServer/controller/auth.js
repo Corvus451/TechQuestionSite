@@ -1,7 +1,6 @@
 const { hashPassword, verifyPassword } = require("../utilities/password");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { query } = require("../services/db");
 const { JWT_SECRET, JWT_EXPIRES_IN } = require("../config/config");
 const dbTool = require("../services/dbTool");
 
@@ -16,10 +15,18 @@ async function authenticate(req, res) {
         // const decoded = jwt.verify(token, JWT_SECRET, (error, user)=>{
         //     if (error) return res.status(403).send("Invalid AuthToken.");
         // });
-        const decoded = jwt.verify(token, JWT_SECRET);
-        console.log(decoded);
+        let decoded;
+        try {
+            decoded = jwt.verify(token, JWT_SECRET);
+            console.log(decoded);
+            
+        } catch (error) {
+            console.error(error);
+            return res.status(401).send("invalid authToken.");
+        }
         // const result = await query("SELECT username, user_id, admin FROM users WHERE user_id = $1", [decoded.user_id]);
         // const user = result[0];
+
 
         const user = await dbTool.getUserById(decoded.user_id);
         console.log(user);
@@ -37,6 +44,7 @@ async function authenticate(req, res) {
         });
 
     } catch (error) {
+        console.error(error);
         res.status(500).send("internal server error.");
     }
 }
@@ -87,4 +95,59 @@ async function register(req, res) {
     }
 }
 
-module.exports = { authenticate, register };
+async function login(req, res) {
+
+try {
+    const { username, password } = req.body;
+    
+    if (!username || !password) {
+        return res.status(400).send("username or password is missing.");
+    }
+    
+    const user = await dbTool.getUserByName(username);
+    
+    if(!user){
+        return res.status(401).send("Username does not exist.");
+    }
+    
+    const passwordResult = await dbTool.getHashedPasswordByid(user.user_id);
+    const hashedPassword = passwordResult.password;
+    
+    const isPasswordValid = await verifyPassword(password, hashedPassword);
+
+    if(!isPasswordValid){
+        return res.status(401).send("Invalid credentials.");
+    }
+
+    const token = jwt.sign(user, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+
+    res.cookie('authToken', token, {
+            httpOnly: true,
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+    });
+
+    res.status(200).send("Login successful.");
+    
+} catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error.");
+}
+
+}
+
+async function logout(req, res) {
+    try {
+        res.clearCookie('authToken', {
+            httpOnly: true,
+            sameSite: 'strict'
+        });
+
+        res.status(200).send("Logout successful.");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("internal server error.");
+    }
+}
+
+module.exports = { authenticate, register, login, logout };

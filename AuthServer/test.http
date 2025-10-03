@@ -1,16 +1,31 @@
+###
 POST http://localhost:3001/api/auth_v1/register
 Content-Type: application/json
 
 {
-    "username": "dbtoolAttempt6",
-    "password": "testPassword"
+    "username": "user900",
+    "password": "passwd"
 }
 
-###
 
+###
+POST http://localhost:3001/api/auth_v1/login
+Content-Type: application/json
+
+{
+    "username": "user500",
+    "password": "passwd"
+}
+
+
+###
+POST http://localhost:3001/api/auth_v1/logout
+
+
+###
 POST http://localhost:3001/api/auth_v1/authenticate
 Content-Type: application/json
 
 {
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMSwidXNlcm5hbWUiOiJkYnRvb2xBdHRlbXB0NiIsInBhc3N3b3JkIjoiJDJiJDEwJEhucGRsODR4WTQvdXdqVVFvVEpULnVVZG9OdXFXRFB4NTFTRmpHWWhQM2ZkNVRrNkd4Z1N5IiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE3NTk0Mzc3MDAsImV4cCI6EHLdMpEItoUD5bg_CmAzN4OV1GvRZc"
+    "authToken": ""
 }

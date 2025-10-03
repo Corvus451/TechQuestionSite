@@ -1,41 +1,34 @@
 const express = require("express");
 const { query } = require("./services/db");
-require('dotenv').config();
-
-// const path = require('path');
-// const fs = require('fs');
+const cookieParser = require("cookie-parser");
+const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config");
+const { authHandler } = require("./services/auth");
+const {
+    getQuestionList,
+    getQuestionById,
+    postQuestion,
+    updateQuestion,
+    deleteQuestion,
+    upVote,
+    setSolved,
+    postAnswer
+} = require("./controller/userActions");
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 
-app.get('/api/questionlist', async (req, res) => {
-    try {
-      const result = await query('SELECT question_id, title FROM questions');
-      console.log(result);
-      res.json(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error);
-    }
-  });
+app.get(ENDPOINT_PREFIX + "/questionlist", getQuestionList);
+app.get(ENDPOINT_PREFIX + "/question/:id", getQuestionById);
 
-  app.get('/api/question/:id', async (req, res)=> {
+app.post(ENDPOINT_PREFIX + "/question", authHandler, postQuestion);
+app.patch(ENDPOINT_PREFIX + "/question/:id", authHandler, updateQuestion);
+app.delete(ENDPOINT_PREFIX + "/question/:id", authHandler, deleteQuestion);
+app.post(ENDPOINT_PREFIX + "/upvote/:id", authHandler, upVote);
+app.post(ENDPOINT_PREFIX + "/setsolved/:id", authHandler, setSolved);
+app.post(ENDPOINT_PREFIX + "/postanswer", authHandler, postAnswer);
 
-    const id = req.params.id;
-
-    try {
-      const result = await query('SELECT * FROM questions WHERE question_id = $1', [id]);
-      if(result.length == 0) {
-        return res.status(404).send("question not found");
-      }
-      res.json(result[0]);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(`Error getting question with id ${id}: ` + error);
-    }
-  });
 
   app.post('/api/question', async (req, res)=> {
     const {owner_id, title, details} = req.body;
@@ -75,6 +68,6 @@ app.get('/api/questionlist', async (req, res) => {
 
 
 
-app.listen(PORT, '0.0.0.0', ()=>{
-    console.log(`Server is listening at PORT ${PORT}`);
+app.listen(SERVER_PORT, '0.0.0.0', ()=>{
+    console.log(`Server is listening at PORT ${SERVER_PORT}`);
 });

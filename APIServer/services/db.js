@@ -1,15 +1,22 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+const {
+  PGUSER,
+  PGPASSWORD,
+  PGDATABASE,
+  PGHOST,
+  PGPORT,
+  DEVENV
+} = require("../config/config");
 
 
 // Configure the database connection
 const pool = new Pool({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
-  ssl: {rejectUnauthorized: false}
+  user: PGUSER,
+  host: PGHOST,
+  database: PGDATABASE,
+  password: PGPASSWORD,
+  port: PGPORT,
+  ssl: DEVENV != "yes" ? {rejectUnauthorized: false} : false
 });
 
 // Function to execute SQL queries

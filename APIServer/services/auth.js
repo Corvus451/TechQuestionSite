@@ -1,7 +1,7 @@
-const { AUTH_ENDPOINT } = require("../config/config");
+const { AUTH_ENDPOINT, AUTH_HOST } = require("../config/config");
 
 const authenticate = async(token) => {
-    const result = await fetch(AUTH_ENDPOINT, {
+    const result = await fetch(AUTH_HOST + AUTH_ENDPOINT, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -11,13 +11,14 @@ const authenticate = async(token) => {
         })
     });
 
-    const data = await result.json();
-
-    if(result.status != 200){
+    if (result.status != 200){
         const error = Error(result);
-        error.name = "auth error";
+        error.name = "Authentication error";
         throw error;
     }
+
+    const data = await result.json();
+
     return data.user;
 }
 
@@ -28,13 +29,23 @@ const authHandler = async(req, res, next) => {
             return res.status(401).send("authToken missing.");
         }
 
-        const user = authenticate(token);
+        let user;
+
+        try {
+            user = await authenticate(token);
+        } catch (error) {
+            console.error(error);
+            return res.status(401).send("Invalid authToken.");
+        }
+
+        console.log("AUTH USER:");
+        console.log(user);
 
         if(!user){
             return res.status(403).send("Invalid token");
         }
 
-        req.body.user = user;
+        req.user = user;
         next();
 
     } catch (error) {

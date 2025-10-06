@@ -32,6 +32,16 @@ exports.dbCreateQuestion = async(owner_id, title, details) => {
     return result[0];
 }
 
+exports.dbAddUpvote = async(id) => {
+    const result = await query("UPDATE questions SET upvotes = upvotes + 1 WHERE question_id = $1 RETURNING upvotes", [id]);
+    return result[0];
+}
+
+exports.dbSolve = async(id) => {
+    const result = await query("UPDATE questions SET solved = true WHERE question_id = $1 RETURNING solved", [id]);
+    return result[0];
+}
+
 
 
 // exports.getUserById = async(id) => {

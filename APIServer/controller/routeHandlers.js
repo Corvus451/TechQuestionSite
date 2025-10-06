@@ -119,11 +119,56 @@ const deleteQuestion = async(req, res) => {
 }
 
 const upVote = async(req, res) => {
-    
+    try {
+        const questionId = req.params.id;
+
+        if(!questionId){
+            return res.status(400).send("No question id provided.");
+        }
+
+        const questionToUpvote = await dbTool.dbGetQuestionById(questionId);
+
+        if(!questionToUpvote){
+            return res.status(404).send("Question not found.");
+        }
+
+        const result = await dbTool.dbAddUpvote(questionId);
+
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
 }
 
 const setSolved = async(req, res) => {
-    
+    try {
+        const questionId = req.params.id;
+        const userId = req.user.user_id;
+
+        if(!questionId){
+            return res.status(400).send("No question id provided.");
+        }
+
+        const questionToSolve = await dbTool.dbGetQuestionById(questionId);
+
+        if(!questionToSolve){
+            return res.status(404).send("Question not found.");
+        }
+
+        if(questionToSolve.owner_id != userId){
+            return res.status(401).send("Question is not created by the requesting user.");
+        }
+
+        const result = await dbTool.dbSolve(questionId);
+
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
 }
 
 const postAnswer = async(req, res) => {

@@ -35,3 +35,14 @@ Cookie: authToken=
         "details": ""
     }
 }
+
+
+###
+POST http://localhost:3000/api/upvote/1
+Content-Type: application/json
+Cookie: authToken=
+
+
+###
+POST http://localhost:3000/api/solve/1
+Cookie: authToken=

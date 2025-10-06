@@ -1,0 +1,37 @@
+###
+GET http://localhost:3000/api/questionlist
+
+
+###
+GET http://localhost:3000/api/question/1
+
+
+###
+POST http://localhost:3000/api/question
+Content-Type: application/json
+Cookie: authToken=
+
+{
+    "question": {
+        "title": "", 
+        "details": ""
+    }
+}
+
+
+###
+DELETE http://localhost:3000/api/question/1
+Content-Type: application/json
+Cookie: authToken=
+
+
+###
+PATCH  http://localhost:3000/api/question/1
+Content-Type: application/json
+Cookie: authToken=
+{
+    "question": {
+        "title": "",
+        "details": ""
+    }
+}

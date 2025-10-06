@@ -3,8 +3,8 @@ POST http://localhost:3001/api/auth_v1/register
 Content-Type: application/json
 
 {
-    "username": "user900",
-    "password": "passwd"
+    "username": "",
+    "password": ""
 }
 
 
@@ -13,8 +13,8 @@ POST http://localhost:3001/api/auth_v1/login
 Content-Type: application/json
 
 {
-    "username": "user500",
-    "password": "passwd"
+    "username": "",
+    "password": ""
 }
 
 

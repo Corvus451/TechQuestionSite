@@ -12,34 +12,35 @@ async function authenticate(req, res) {
             return res.status(400).send("No auth token provided.");
         }
 
-        // const decoded = jwt.verify(token, JWT_SECRET, (error, user)=>{
+        // const decodedUser = jwt.verify(token, JWT_SECRET, (error, user)=>{
         //     if (error) return res.status(403).send("Invalid AuthToken.");
         // });
-        let decoded;
+        let decodedUser;
         try {
-            decoded = jwt.verify(token, JWT_SECRET);
-            console.log(decoded);
+            decodedUser = jwt.verify(token, JWT_SECRET);
+            console.log("DECODED USER:");
+            console.log(decodedUser);
             
         } catch (error) {
             console.error(error);
             return res.status(401).send("invalid authToken.");
         }
-        // const result = await query("SELECT username, user_id, admin FROM users WHERE user_id = $1", [decoded.user_id]);
+        // const result = await query("SELECT username, user_id, admin FROM users WHERE user_id = $1", [decodedUser.user_id]);
         // const user = result[0];
 
 
-        const user = await dbTool.getUserById(decoded.user_id);
-        console.log(user);
+        // const user = await dbTool.getUserById(decodedUser.user_id);
+        // console.log(user);
 
-        if(!user){
-            return res.status(401).send("User does not exist.");
-        }
+        // if(!decodedUser){
+        //     return res.status(401).send("User does not exist.");
+        // }
 
         res.status(200).json({
             user: {
-                username: user.username,
-                user_id: user.user_id,
-                admin: user.admin,
+                username: decodedUser.username,
+                user_id: decodedUser.user_id,
+                admin: decodedUser.admin,
             }
         });
 

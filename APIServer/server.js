@@ -12,7 +12,7 @@ const {
     upVote,
     setSolved,
     postAnswer
-} = require("./controller/userActions");
+} = require("./controller/routeHandlers");
 
 const app = express();
 

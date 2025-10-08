@@ -24,7 +24,7 @@ CREATE TABLE answers (
   answer_id serial PRIMARY KEY,
   question_id integer NOT NULL,
   owner_id integer NOT NULL,
-  content text NOT NULL,
+  answer text NOT NULL,
   created_at timestamp DEFAULT CURRENT_TIMESTAMP,
   upvotes integer DEFAULT 0,
   FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE,

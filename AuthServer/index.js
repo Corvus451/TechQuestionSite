@@ -1,6 +1,5 @@
 const express = require("express");
-const { query } = require("./services/db");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 
 const {
     authenticate,
@@ -14,7 +13,7 @@ const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config");
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 
 // endpoints

@@ -1,10 +1,10 @@
 const { query } = require("./db");
 
-exports.dbPostQuestion = async(owner_id, title, details) => {
-    const result = await query("INSERT INTO questions(owner_id, title, details) VALUES($1, $2, $3) RETURNING *", [owner_id, title, details]);
-    console.log(result);
-    return result[0];
-}
+// exports.dbPostQuestion = async(owner_id, title, details) => {
+//     const result = await query("INSERT INTO questions(owner_id, title, details) VALUES($1, $2, $3) RETURNING *", [owner_id, title, details]);
+//     console.log(result);
+//     return result[0];
+// }
 
 exports.dbGetQuestionList = async() => {
     const result = await query("SELECT * FROM questions");
@@ -40,6 +40,16 @@ exports.dbAddUpvote = async(id) => {
 exports.dbSolve = async(id) => {
     const result = await query("UPDATE questions SET solved = true WHERE question_id = $1 RETURNING solved", [id]);
     return result[0];
+}
+
+exports.dbCreateAnswer = async(question_id, owner_id, answer) => {
+    const result = await query("INSERT INTO answers(question_id, owner_id, answer) VALUES($1, $2, $3) RETURNING *", [question_id, owner_id, answer]);
+    return result[0];
+}
+
+exports.dbGetAnswersByQuestion = async(id) => {
+    const result = await query("SELECT * FROM answers WHERE question_id = $1", [id]);
+    return result;
 }
 
 

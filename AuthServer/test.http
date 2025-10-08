@@ -1,4 +1,4 @@
-###
+### REGISTER
 POST http://localhost:3001/api/auth_v1/register
 Content-Type: application/json
 
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 
-###
+### LOGIN
 POST http://localhost:3001/api/auth_v1/login
 Content-Type: application/json
 
@@ -18,11 +18,11 @@ Content-Type: application/json
 }
 
 
-###
+### LOGOUT
 POST http://localhost:3001/api/auth_v1/logout
 
 
-###
+### AUTHENTICATE (GET TOKEN)
 POST http://localhost:3001/api/auth_v1/authenticate
 Content-Type: application/json
 

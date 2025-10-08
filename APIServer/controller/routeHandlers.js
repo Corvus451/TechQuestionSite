@@ -172,7 +172,41 @@ const setSolved = async(req, res) => {
 }
 
 const postAnswer = async(req, res) => {
+
+    try {
+        const user = req.user;
+        const answer = req.body.answer;
+        const questionId = req.params.id;
     
+        if(!answer || !answer.answer){
+            return res.status(400).send("Missing answer object.");
+        }
+    
+        const question = await dbTool.dbGetQuestionById(questionId);
+    
+        if(!question){
+            return res.status(400).send("Question not found.");
+        }
+    
+        const result = await dbTool.dbCreateAnswer(questionId, user.user_id, answer.answer);
+    
+        res.status(201).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
+}
+
+const getAnswersOfQuestion = async(req, res) => {
+
+    try {
+        const questionId = req.params.id;
+        const result = await dbTool.dbGetAnswersByQuestion(questionId);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
 }
 
 module.exports = {
@@ -183,5 +217,6 @@ module.exports = {
     deleteQuestion,
     upVote,
     setSolved,
-    postAnswer
+    postAnswer,
+    getAnswersOfQuestion
 }

@@ -11,7 +11,8 @@ const {
     deleteQuestion,
     upVote,
     setSolved,
-    postAnswer
+    postAnswer,
+    getAnswersOfQuestion
 } = require("./controller/routeHandlers");
 
 const app = express();
@@ -21,13 +22,13 @@ app.use(cookieParser());
 
 app.get(ENDPOINT_PREFIX + "/questionlist", getQuestionList);
 app.get(ENDPOINT_PREFIX + "/question/:id", getQuestionById);
+app.get(ENDPOINT_PREFIX + "/answers/:id", getAnswersOfQuestion);
 app.post(ENDPOINT_PREFIX + "/question", authHandler, postQuestion);
 app.patch(ENDPOINT_PREFIX + "/question/:id", authHandler, updateQuestion);
 app.delete(ENDPOINT_PREFIX + "/question/:id", authHandler, deleteQuestion);
 app.post(ENDPOINT_PREFIX + "/upvote/:id", authHandler, upVote);
 app.post(ENDPOINT_PREFIX + "/solve/:id", authHandler, setSolved);
-
-app.post(ENDPOINT_PREFIX + "/postanswer", authHandler, postAnswer);
+app.post(ENDPOINT_PREFIX + "/postanswer/:id", authHandler, postAnswer);
 
 
 

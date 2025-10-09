@@ -22,6 +22,18 @@ output "subnet_private_a_id" {
   value = aws_subnet.private-a.id
 }
 
+output "subnet_private_db" {
+  value = aws_subnet.private-db.id
+}
+
+output "security_group_db_id" {
+  value = aws_security_group.db.id
+}
+
+output "subnet_group_db_name" {
+  value = aws_db_subnet_group.db.name
+}
+
 output "subnet_public_ids" {
   value = [
     aws_subnet.public.id,

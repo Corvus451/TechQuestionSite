@@ -10,7 +10,7 @@ resource "aws_vpc" "this" {
 
 resource "aws_subnet" "public" {
   vpc_id = aws_vpc.this.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.0.0.0/24"
   availability_zone = "${var.region}a"
   map_public_ip_on_launch = true
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "public-a" {
   vpc_id = aws_vpc.this.id
-  cidr_block = "10.0.4.0/24"
+  cidr_block = "10.0.1.0/24"
   availability_zone = "${var.region}b"
   map_public_ip_on_launch = true
 
@@ -50,6 +50,17 @@ resource "aws_subnet" "private-a" {
 
   tags = {
     Name = "${var.project_name}-subnet"
+    "kubernetes.io/role/internal-elb" = "1"
+  }
+}
+
+resource "aws_subnet" "private-db" {
+  vpc_id = aws_vpc.this.id
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "${var.region}b"
+
+  tags = {
+    Name = "${var.project_name}-db-subnet"
     "kubernetes.io/role/internal-elb" = "1"
   }
 }
@@ -121,4 +132,28 @@ resource "aws_route_table_association" "public" {
 resource "aws_route_table_association" "public-a" {
   subnet_id = aws_subnet.public-a.id
   route_table_id = aws_route_table.this.id
+}
+
+resource "aws_db_subnet_group" "db" {
+  name = "subnet_group_for_db"
+  subnet_ids = [ aws_subnet.private-db.id ]
+}
+
+resource "aws_security_group" "db" {
+  vpc_id = aws_vpc.this.id
+  name = "${var.project_name}-db-sec-group"
+
+  ingress {
+    from_port = 5432
+    to_port = 5432
+    protocol = "tcp"
+    cidr_blocks = [aws_vpc.this.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

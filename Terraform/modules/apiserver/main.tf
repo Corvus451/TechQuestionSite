@@ -65,7 +65,7 @@ resource "kubernetes_deployment_v1" "apiserver" {
 
           env {
           name = "SERVER_PORT"
-          value = 3000  
+          value = var.apiserver_port  
           }
 
           port {

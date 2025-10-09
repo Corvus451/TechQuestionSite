@@ -29,3 +29,11 @@ variable "env_db_name" {
 variable "env_db_port" {
   type = string
 }
+
+variable "env_auth_host" {
+  type = string
+}
+
+variable "env_auth_endpoint" {
+  type = string
+}

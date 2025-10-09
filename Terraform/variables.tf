@@ -22,24 +22,34 @@ variable "db_username" {
   sensitive = true
 }
 
-variable "db_name" {
-  type = string
-}
-
 variable "db_password" {
   type = string
   default = "postgres"
   sensitive = true
 }
 
-# variable "aws_ecr_registry_name" {
-#   type = string
-# }
+variable "repository_main" {
+  type = string
+}
 
-variable "aws_ecr_repository" {
+variable "repository_auth" {
   type = string
 }
 
 variable "aws_account_id" {
+  type = string
+}
+
+variable "auth_endpoint" {
+  type = string
+  default = "/api/auth_v1"
+}
+
+variable "jwt_secret" {
+  type = string
+  sensitive = true
+}
+
+variable "jwt_expires_in" {
   type = string
 }

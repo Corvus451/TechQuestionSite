@@ -1,4 +1,4 @@
-const { query } = require("./db");
+const { query } = require("./db.js");
 
 // exports.dbPostQuestion = async(owner_id, title, details) => {
 //     const result = await query("INSERT INTO questions(owner_id, title, details) VALUES($1, $2, $3) RETURNING *", [owner_id, title, details]);

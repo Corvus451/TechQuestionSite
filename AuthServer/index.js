@@ -6,7 +6,7 @@ const {
     register,
     login,
     logout
-} = require("./controller/auth");
+} = require("./controller/auth.js");
 
 const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config");
 

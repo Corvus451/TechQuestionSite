@@ -48,8 +48,8 @@ module "database-auth" {
   db_username = var.db_username
   db_password = var.db_password
   database_name = "auth"
-  subnet_group_name = aws_db_subnet_group.db.name
-  security_group_id = aws_security_group.db.id
+  subnet_group_name = module.vpc.subnet_group_db_name
+  security_group_id = module.vpc.security_group_db_id
 }
 
 resource "terraform_data" "sql_init" {
@@ -110,7 +110,7 @@ module "authserver" {
   depends_on = [ module.database-main, module.database-auth, module.eks ]
   authserver_port = 3001
   authserver_replicas = 2
-  authserver_image = "${aws_ecr_repository.auth}:latest"
+  authserver_image = "${aws_ecr_repository.auth.repository_url}:latest"
   env_db_username = var.db_username
   env_db_password = var.db_password
   env_db_name = "auth"
@@ -132,7 +132,7 @@ module "apiserver" {
   env_db_host = module.database-main.database_address
   env_db_name = "main"
   env_db_port = "5432"
-  env_auth_host = "${module.authserver.authserver_svc_name}:3001"
+  env_auth_host = "http://${module.authserver.authserver_svc_name}:3001"
   env_auth_endpoint = var.auth_endpoint
 
 }
@@ -166,5 +166,5 @@ resource "kubernetes_ingress_v1" "ingress" {
       }
     }
   }
-  depends_on = [module.eks, module.pods]
+  depends_on = [module.eks, module.apiserver]
 }

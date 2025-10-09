@@ -60,8 +60,17 @@ resource "aws_subnet" "private-db" {
   availability_zone = "${var.region}b"
 
   tags = {
-    Name = "${var.project_name}-db-subnet"
-    "kubernetes.io/role/internal-elb" = "1"
+    Name = "${var.project_name}-db-subnetb"
+  }
+}
+
+resource "aws_subnet" "private-db-a" {
+  vpc_id = aws_vpc.this.id
+  cidr_block = "10.0.5.0/24"
+  availability_zone = "${var.region}a"
+
+  tags = {
+    Name = "${var.project_name}-db-subneta"
   }
 }
 
@@ -136,7 +145,7 @@ resource "aws_route_table_association" "public-a" {
 
 resource "aws_db_subnet_group" "db" {
   name = "subnet_group_for_db"
-  subnet_ids = [ aws_subnet.private-db.id ]
+  subnet_ids = [ aws_subnet.private-db.id, aws_subnet.private-db-a.id ]
 }
 
 resource "aws_security_group" "db" {

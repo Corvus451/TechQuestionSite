@@ -1,8 +1,8 @@
 const express = require("express");
-const { query } = require("./services/db");
+const { query } = require("./services/db.js");
 const cookieParser = require("cookie-parser");
-const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config");
-const { authHandler } = require("./services/auth");
+const { SERVER_PORT, ENDPOINT_PREFIX } = require("./config/config.js");
+const { authHandler } = require("./services/auth.js");
 const {
     getQuestionList,
     getQuestionById,

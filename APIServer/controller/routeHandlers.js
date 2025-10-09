@@ -1,8 +1,8 @@
-const dbTool = require("../services/dbTool");
+const dbTool = require("../services/dbTool.js");
 const {
     authRegister,
     authLogin
-} = require("../services/auth");
+} = require("../services/auth.js");
 
 const register = async(req, res) => {
     try {

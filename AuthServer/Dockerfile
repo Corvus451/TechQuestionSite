@@ -3,11 +3,11 @@ FROM node:alpine
 WORKDIR /authserver
 
 COPY ./package*.json .
-COPY ./config .
-COPY ./utilities .
-COPY ./services .
+COPY ./config/* ./config/
+COPY ./utilities/* ./utilities/
+COPY ./services/* ./services/
 COPY ./index.js .
-COPY ./controller .
+COPY ./controller/* ./controller/
 
 RUN npm install
 

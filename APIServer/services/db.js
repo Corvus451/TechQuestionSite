@@ -6,7 +6,7 @@ const {
   PGHOST,
   PGPORT,
   DEVENV
-} = require("../config/config");
+} = require("../config/config.js");
 
 
 // Configure the database connection

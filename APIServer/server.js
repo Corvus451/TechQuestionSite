@@ -12,7 +12,10 @@ const {
     upVote,
     setSolved,
     postAnswer,
-    getAnswersOfQuestion
+    getAnswersOfQuestion,
+    register,
+    login,
+    logout
 } = require("./controller/routeHandlers");
 
 const app = express();
@@ -30,6 +33,9 @@ app.post(ENDPOINT_PREFIX + "/upvote/:id", authHandler, upVote);
 app.post(ENDPOINT_PREFIX + "/solve/:id", authHandler, setSolved);
 app.post(ENDPOINT_PREFIX + "/postanswer/:id", authHandler, postAnswer);
 
+app.post(ENDPOINT_PREFIX + "/register", register);
+app.post(ENDPOINT_PREFIX + "/login", login);
+app.post(ENDPOINT_PREFIX + "/logout", logout);
 
 
 app.listen(SERVER_PORT, '0.0.0.0', ()=>{

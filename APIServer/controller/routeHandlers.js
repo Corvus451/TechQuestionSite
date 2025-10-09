@@ -1,4 +1,76 @@
 const dbTool = require("../services/dbTool");
+const {
+    authRegister,
+    authLogin
+} = require("../services/auth");
+
+const register = async(req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if(!username || !password){
+            return res.status(400).send("Missing username or password.");
+        }
+
+        let result;
+
+        try {
+            
+            result = await authRegister(username, password);
+
+        } catch (error) {
+            console.log(error);
+            return res.status(400).send(error.message);
+        }
+
+        const setCookies = result.headers.getSetCookie();
+
+        res.set('SetCookie', setCookies);
+
+        res.status(201).send(result.message);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
+}
+
+const login = async(req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if(!username || !password){
+            return res.status(400).send("Missing username or password.");
+        }
+
+        let result;
+
+        try {
+            result = await authLogin(username, password);
+        } catch (error) {
+            console.log(error);
+            return res.status(401).send(error.message);
+        }
+
+        const setCookies = result.headers.getSetCookie();
+
+        res.set('SetCookie', setCookies);
+
+        res.status(200).send(result.message);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
+    }
+}
+
+const logout = async(req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
 
 const getQuestionList = async(req, res) => {
     try {
@@ -218,5 +290,8 @@ module.exports = {
     upVote,
     setSolved,
     postAnswer,
-    getAnswersOfQuestion
+    getAnswersOfQuestion,
+    register,
+    login,
+    logout
 }

@@ -1,7 +1,7 @@
 const { AUTH_ENDPOINT, AUTH_HOST } = require("../config/config");
 
 const authenticate = async(token) => {
-    const result = await fetch(AUTH_HOST + AUTH_ENDPOINT, {
+    const result = await fetch(AUTH_HOST + AUTH_ENDPOINT + "/authenticate", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

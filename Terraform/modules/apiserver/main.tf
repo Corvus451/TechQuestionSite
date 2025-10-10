@@ -68,6 +68,16 @@ resource "kubernetes_deployment_v1" "apiserver" {
           value = var.apiserver_port  
           }
 
+          env{
+            name = "AUTH_HOST"
+            value = var.env_auth_host
+          }
+
+          env {
+            name = "AUTH_ENDPOINT"
+            value = var.env_auth_endpoint
+          }
+
           port {
             container_port = var.apiserver_port
           }

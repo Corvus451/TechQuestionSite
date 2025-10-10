@@ -41,6 +41,7 @@ async function authenticate(req, res) {
                 username: decodedUser.username,
                 user_id: decodedUser.user_id,
                 admin: decodedUser.admin,
+                created_at: decodedUser.created_at
             }
         });
 
@@ -78,6 +79,9 @@ async function register(req, res) {
 
         const createdUser = await dbTool.createUser(username, hashedPassword);
 
+        console.log("CREATED USER AT AUTHSERVER:");
+        console.log(createdUser);
+
         const token = jwt.sign(createdUser, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN});
 
 
@@ -88,7 +92,10 @@ async function register(req, res) {
         });
 
 
-        res.status(201).send("Registered successfully");
+        res.status(201).json({
+            message: "Registered successfully.",
+            user: createdUser
+        });
 
 
     } catch (error) {

@@ -80,13 +80,16 @@ const authRegister = async (username, password) => {
 
     console.log("===RESULT IS OK===");
 
-    const message = await result.text();
+    const { message, user } = await result.json();
     console.log("REGISTRATION MESSAGE:");
     console.log(message);
+    console.log("USER OBJECT:");
+    console.log(user);
 
     return {
         headers: result.headers,
-        message: message
+        message: message,
+        user: user
     };
 }
 

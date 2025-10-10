@@ -6,7 +6,8 @@ exports.createUser = async(username, hashedPassword) => {
     return {
         username: result[0].username,
         user_id: result[0].user_id,
-        admin: result[0].admin
+        admin: result[0].admin,
+        created_at: result[0].created_at
     };
 }
 
@@ -24,7 +25,8 @@ exports.getUserByName = async(username) => {
     return {
         username: result[0].username,
         user_id: result[0].user_id,
-        admin: result[0].admin
+        admin: result[0].admin,
+        created_at: result[0].created_at
     };
 }
 
@@ -36,7 +38,8 @@ exports.getUserById = async(id) => {
     return {
         username: result[0].username,
         user_id: result[0].user_id,
-        admin: result[0].admin
+        admin: result[0].admin,
+        created_at: result[0].created_at
     };
 }
 

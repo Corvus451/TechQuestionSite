@@ -52,6 +52,11 @@ exports.dbGetAnswersByQuestion = async(id) => {
     return result;
 }
 
+exports.dbCreateUser = async(user_id, username, admin, created_at) => {
+    const result = await query("INSERT INTO users(user_id, username, admin, created_at) VALUES($1, $2, $3, $4) RETURNING *", [user_id, username, admin, created_at]);
+    return result[0];
+}
+
 
 
 // exports.getUserById = async(id) => {

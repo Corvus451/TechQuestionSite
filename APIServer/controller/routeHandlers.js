@@ -23,11 +23,19 @@ const register = async(req, res) => {
             return res.status(400).send(error.message);
         }
 
+        console.log("GOT USER IN ROUTE HANDLER:");
+        console.log(result.user);
+
+        const createdUser = await dbTool.dbCreateUser(result.user.user_id, result.user.username, result.user.admin, result.user.created_at);
+
         const setCookies = result.headers.getSetCookie();
 
         res.set('SetCookie', setCookies);
 
-        res.status(201).send(result.message);
+        res.status(201).json({
+            message: result.message,
+            user: createdUser
+        });
 
     } catch (error) {
         console.error(error);
@@ -116,6 +124,10 @@ const postQuestion = async(req, res) => {
         if(!question) {
             return res.status(400).send("Missing question object.");
         }
+
+        console.log("===POST QUESTION");
+        console.log("===USER:");
+        console.log(user);
 
         const result = await dbTool.dbCreateQuestion(user.user_id, question.title, question.details);
 

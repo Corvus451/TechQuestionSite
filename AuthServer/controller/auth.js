@@ -12,29 +12,14 @@ async function authenticate(req, res) {
             return res.status(400).send("No auth token provided.");
         }
 
-        // const decodedUser = jwt.verify(token, JWT_SECRET, (error, user)=>{
-        //     if (error) return res.status(403).send("Invalid AuthToken.");
-        // });
         let decodedUser;
         try {
             decodedUser = jwt.verify(token, JWT_SECRET);
-            console.log("DECODED USER:");
-            console.log(decodedUser);
             
         } catch (error) {
             console.error(error);
             return res.status(401).send("invalid authToken.");
         }
-        // const result = await query("SELECT username, user_id, admin FROM users WHERE user_id = $1", [decodedUser.user_id]);
-        // const user = result[0];
-
-
-        // const user = await dbTool.getUserById(decodedUser.user_id);
-        // console.log(user);
-
-        // if(!decodedUser){
-        //     return res.status(401).send("User does not exist.");
-        // }
 
         res.status(200).json({
             user: {
@@ -78,9 +63,6 @@ async function register(req, res) {
         // const createdUser = result[0];
 
         const createdUser = await dbTool.createUser(username, hashedPassword);
-
-        console.log("CREATED USER AT AUTHSERVER:");
-        console.log(createdUser);
 
         const token = jwt.sign(createdUser, JWT_SECRET, {expiresIn: JWT_EXPIRES_IN});
 

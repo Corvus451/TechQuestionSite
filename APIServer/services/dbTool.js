@@ -1,14 +1,7 @@
 const { query } = require("./db.js");
 
-// exports.dbPostQuestion = async(owner_id, title, details) => {
-//     const result = await query("INSERT INTO questions(owner_id, title, details) VALUES($1, $2, $3) RETURNING *", [owner_id, title, details]);
-//     console.log(result);
-//     return result[0];
-// }
-
 exports.dbGetQuestionList = async() => {
     const result = await query("SELECT * FROM questions");
-    console.log(result);
     return result;
 }
 

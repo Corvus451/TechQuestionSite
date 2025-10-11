@@ -38,6 +38,11 @@ app.post(ENDPOINT_PREFIX + "/login", login);
 app.post(ENDPOINT_PREFIX + "/logout", logout);
 
 
-app.listen(SERVER_PORT, '0.0.0.0', ()=>{
-    console.log(`Server is listening at PORT ${SERVER_PORT}`);
-});
+try {
+    app.listen(SERVER_PORT, '0.0.0.0', ()=>{
+        console.log(`Server is listening at PORT ${SERVER_PORT}`);
+    });
+} catch (error) {
+    console.error(error);
+    process.exit(1);
+}

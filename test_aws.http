@@ -1,0 +1,86 @@
+### REGISTER
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/register
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": ""
+}
+
+
+### LOGIN
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/login
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": ""
+}
+
+
+### LIST QUESTIONS
+GET http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/questionlist
+
+
+### GET QUESTION BY ID
+GET http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/question/1
+
+
+### POST QUESTION
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/question
+Content-Type: application/json
+Cookie: authToken=
+
+{
+    "question": {
+        "title": "", 
+        "details": ""
+    }
+}
+
+
+### DELETE QUESTION
+DELETE http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/question/1
+Content-Type: application/json
+Cookie: authToken=
+
+
+### UPDATE QUESTION
+PATCH  http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/question/1
+Content-Type: application/json
+Cookie: authToken=
+
+{
+    "question": {
+        "title": "",
+        "details": ""
+    }
+}
+
+
+### UPVOTE QUESTION
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/upvote/1
+Content-Type: application/json
+Cookie: authToken=
+
+
+### SET QUESTION TO SOLVED
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/solve/1
+Cookie: authToken=
+
+
+### POST ANSWER
+POST http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/postanswer/1
+Content-Type: application/json
+Cookie: authToken=
+
+{
+    "answer": {
+        "answer": ""
+    }
+}
+
+
+### GET ANSWERS BY QUESTION
+GET http://k8s-default-tqsingre-0d486cbd09-1388155418.eu-central-1.elb.amazonaws.com/api/answers/1
+Cookie: authToken=

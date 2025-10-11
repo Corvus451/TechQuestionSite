@@ -1,6 +1,7 @@
 const { AUTH_ENDPOINT, AUTH_HOST } = require("../config/config.js");
 
 const authenticate = async (token) => {
+
     const result = await fetch(AUTH_HOST + AUTH_ENDPOINT + "/authenticate", {
         method: "POST",
         headers: {
@@ -38,9 +39,6 @@ const authHandler = async (req, res, next) => {
             return res.status(401).send("Invalid authToken.");
         }
 
-        console.log("AUTH USER:");
-        console.log(user);
-
         if (!user) {
             return res.status(403).send("Invalid token");
         }
@@ -56,8 +54,6 @@ const authHandler = async (req, res, next) => {
 
 const authRegister = async (username, password) => {
 
-    console.log("===SENDING DATA TO AUTH SERVER...===");
-
     const result = await fetch(AUTH_HOST + AUTH_ENDPOINT + "/register", {
         method: "POST",
         headers: {
@@ -69,8 +65,6 @@ const authRegister = async (username, password) => {
         })
     });
 
-    console.log("===RESPONSE RECEIVED FROM AUTH SERVER===");
-
     if (!result.ok) {
         const errorMessage = await result.text();
         const error = Error(errorMessage);
@@ -78,13 +72,7 @@ const authRegister = async (username, password) => {
         throw error;
     }
 
-    console.log("===RESULT IS OK===");
-
     const { message, user } = await result.json();
-    console.log("REGISTRATION MESSAGE:");
-    console.log(message);
-    console.log("USER OBJECT:");
-    console.log(user);
 
     return {
         headers: result.headers,

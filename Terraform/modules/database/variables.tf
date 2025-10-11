@@ -1,4 +1,4 @@
-variable "project_name" {
+variable "identifier" {
   type = string
 }
 
@@ -14,19 +14,15 @@ variable "db_password" {
   type = string
 }
 
-variable "vpc_id" {
-  type = string
-}
-
-variable "vpc_cidr" {
-  type = string
-}
-
-variable "subnet_private_ids" {
-  type = list(string)
-}
-
 variable "database_name" {
+  type = string
+}
+
+variable "subnet_group_name" {
+  type = string
+}
+
+variable "security_group_id" {
   type = string
 }
 

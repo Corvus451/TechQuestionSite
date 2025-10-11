@@ -27,3 +27,29 @@ variable "db_password" {
   default = "postgres"
   sensitive = true
 }
+
+variable "repository_main" {
+  type = string
+}
+
+variable "repository_auth" {
+  type = string
+}
+
+variable "aws_account_id" {
+  type = string
+}
+
+variable "auth_endpoint" {
+  type = string
+  default = "/api/auth_v1"
+}
+
+variable "jwt_secret" {
+  type = string
+  sensitive = true
+}
+
+variable "jwt_expires_in" {
+  type = string
+}

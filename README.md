@@ -6,12 +6,17 @@ This is a tech question forum website like Stackoverflow. Users can create accou
 
 ### Technologies used
 
-* AWS
-* Kubernetes
-* Docker
-* Terraform
-* Express JS
-* PostgreSQL
+* ![Static Badge](https://img.shields.io/badge/AWS-black?style=for-the-badge
+)
+* ![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=for-the-badge&logo=kubernetes)
+* ![Static Badge](https://img.shields.io/badge/Docker-black?style=for-the-badge&logo=docker
+)
+* ![Static Badge](https://img.shields.io/badge/Terraform-black?style=for-the-badge&logo=terraform
+)
+* ![Static Badge](https://img.shields.io/badge/Express.js-black?style=for-the-badge&logo=express
+)
+* ![Static Badge](https://img.shields.io/badge/PostgreSQL-black?style=for-the-badge&logo=postgresql
+)
 
 
 ## Dependencies

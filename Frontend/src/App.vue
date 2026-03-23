@@ -72,21 +72,6 @@ form {
         padding-bottom: 0.4rem;
     }
 
-    button {
-        align-self: flex-end;
-        color: white;
-        background-color: #181818;
-        border: 1px solid transparent;
-        border-radius: 3px;
-        padding: 0.3rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
-
-    button:hover {
-        border: 1px solid #a2a2a2;
-    }
-
     input {
         background-color: #181818;
         /* border: 1px solid #a2a2a2; */

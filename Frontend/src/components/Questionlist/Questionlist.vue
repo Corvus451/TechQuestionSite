@@ -10,7 +10,10 @@
 
 <template>
 
-    <Question v-for="question in questions" :key="question" :question="question" />
+    <div>
+        <Question v-for="question in questions" :key="question" :question="question" />
+    </div>
+
 
 </template>
 

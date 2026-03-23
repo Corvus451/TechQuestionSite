@@ -25,7 +25,7 @@ const handleLogin = () => {
                 <input type="password" name="password" id="password" required v-model="password" @input="onInput">
             </div>
     
-            <button type="submit">login</button>
+            <button class="button-s" type="submit">login</button>
         </form>
     </div>
 </template>

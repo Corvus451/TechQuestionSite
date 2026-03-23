@@ -13,20 +13,29 @@ onMounted(async () => {
         console.log(result)
         loading.value = false
     } catch (error) {
-        
+
     }
 
 });
 </script>
 
 <template>
-<h2 v-if="loading">loading</h2>
-<template v-else>
-    <h2>Recent questions</h2>
-    <Questionlist :questions="questions"/>
-</template>
+
+    <h2 v-if="loading">loading</h2>
+
+    <template v-else>
+        <h2>Recent questions</h2>
+
+        <div class="questionlist">
+            <Questionlist :questions="questions" />
+        </div>
+
+    </template>
+
 </template>
 
 <style scoped>
-
+.questionlist {
+    max-width: 40%;
+}
 </style>

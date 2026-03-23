@@ -81,9 +81,6 @@ export async function logout() {
 }
 
 export async function authenticate() {
-    if (!isLoggedIn()) {
-        return;
-    }
     try {
         const resp = await fetch('/api/authenticate', {
             method: 'POST'

@@ -1,13 +1,17 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import LoginForm from '../components/authform/LoginForm.vue';
 import { login } from '../utility/api';
 
-const handleLogin = (username, password) => {
- if (username && password) {
-    console.log("logging in")
-    login(username, password);
- }
+const router = useRouter();
+
+const handleLogin = async (username, password) => {
+    if (username && password) {
+        const success = await login(username, password);
+        if (success) {
+            router.push('/');
+        }
+    }
 }
 
 </script>
@@ -21,7 +25,6 @@ const handleLogin = (username, password) => {
 </template>
 
 <style scoped>
-
 h1 {
     align-self: center;
 }

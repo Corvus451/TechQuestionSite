@@ -1,11 +1,16 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import RegisterForm from '../components/authform/RegisterForm.vue';
 import { register } from '../utility/api';
 
-const handleRegister = (username, password) => {
+const router = useRouter();
+
+const handleRegister = async (username, password) => {
     if(username && password) {
-        register(username, password)
+        success = await register(username, password)
+        if(success) {
+            router.push('/');
+        }
     }
 }
 

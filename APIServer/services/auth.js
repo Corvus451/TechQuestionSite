@@ -108,4 +108,4 @@ const authLogin = async (username, password) => {
     };
 }
 
-module.exports = { authHandler, authRegister, authLogin };
+module.exports = { authHandler, authRegister, authLogin, authenticate };

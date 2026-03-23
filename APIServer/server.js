@@ -15,7 +15,8 @@ const {
     getAnswersOfQuestion,
     register,
     login,
-    logout
+    logout,
+    clientAuthenticate
 } = require("./controller/routeHandlers");
 
 const app = express();
@@ -36,6 +37,7 @@ app.post(ENDPOINT_PREFIX + "/postanswer/:id", authHandler, postAnswer);
 app.post(ENDPOINT_PREFIX + "/register", register);
 app.post(ENDPOINT_PREFIX + "/login", login);
 app.post(ENDPOINT_PREFIX + "/logout", logout);
+app.post(ENDPOINT_PREFIX + "/authenticate", clientAuthenticate);
 
 
 try {

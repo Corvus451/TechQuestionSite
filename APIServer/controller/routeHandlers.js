@@ -1,7 +1,8 @@
 const dbTool = require("../services/dbTool.js");
 const {
     authRegister,
-    authLogin
+    authLogin,
+    authenticate,
 } = require("../services/auth.js");
 
 const register = async(req, res) => {
@@ -74,6 +75,37 @@ const logout = async(req, res) => {
         
     } catch (error) {
         
+    }
+}
+
+const clientAuthenticate = async(req, res) => {
+    try {
+        const token = req.cookies.authToken;
+
+        if (!token) {
+            return res.status(401).send("authToken missing.");
+        }
+
+        let user;
+
+        try {
+            user = await authenticate(token);
+        } catch (error) {
+            console.error(error);
+            return res.status(401).send("Invalid authToken.");
+        }
+
+        if (!user) {
+            return res.status(403).send("Invalid token");
+        }
+
+        return res.status(200).json({
+            user: user
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error.");
     }
 }
 
@@ -296,5 +328,6 @@ module.exports = {
     getAnswersOfQuestion,
     register,
     login,
-    logout
+    logout,
+    clientAuthenticate
 }

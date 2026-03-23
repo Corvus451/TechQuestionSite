@@ -11,7 +11,7 @@ import { isLoggedIn, user } from '../../utility/status';
         <RouterLink to="/">Home</RouterLink>
 
         <template v-if="isLoggedIn()">
-            <RouterLink to="postquestion">Post question</RouterLink>
+            <RouterLink to="/postquestion">Post question</RouterLink>
             <div class="user-display">
                 <span>{{ user.username }}</span>
                 <button class="button-s" @click="logout">logout</button>
@@ -36,6 +36,22 @@ nav {
     padding: 0.7rem;
     align-items: center;
     border-radius: 8px;
+
+    a {
+        padding: 0.4rem;
+        text-decoration: none;
+        border: 1px solid transparent;
+        border-radius: 3px;
+    }
+
+    a.router-link-active {
+        border: 1px solid #a2a2a2;
+        border-radius: 3px;
+    }
+
+    a:hover {
+        box-shadow: 0px 0px 5px white;
+    }
 }
 
 .user-display {

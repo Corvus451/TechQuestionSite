@@ -19,16 +19,6 @@ onMounted(() => {
 </template>
 
 <style>
-body {
-  padding: 0%;
-  margin: 0%;
-  background-color: black;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Ubuntu Sans Mono';
-}
-
 :visited {
   color: white;
 }
@@ -59,7 +49,9 @@ body {
 }
 
 form {
-    border: 1px solid rgb(125, 125, 125);
+    /* border: 1px solid rgb(125, 125, 125); */
+    box-shadow: 0px 0px 18px 5px black;
+    background-color: #181818;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -67,15 +59,16 @@ form {
     align-items: flex-start;
     border-radius: 8px;
     gap: 1rem;
-
+    
     label {
         padding-bottom: 0.4rem;
     }
-
+    
     input {
-        background-color: #181818;
+        background-color: transparent;
+        border: 1px solid #a2a2a2;
         /* border: 1px solid #a2a2a2; */
-        border: 1px solid transparent;
+        /* border: 1px solid transparent; */
         border-radius: 3px;
         font-size: 1rem;
         color: white;
@@ -84,9 +77,9 @@ form {
 
     input:focus {
         /* border: 1px hidden; */
-        border: 1px solid #a2a2a2;
+        /* border: 1px solid #a2a2a2; */
         outline: none;
-        border-radius: 3px
+        /* border-radius: 3px */
     }
 }
 

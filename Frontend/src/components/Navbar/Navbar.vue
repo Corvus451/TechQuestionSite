@@ -28,9 +28,10 @@ nav {
     display: flex;
     gap: 2rem;
     background-color: #252525;
-    margin: 0%;
-    padding: 0.5rem;
+    margin: 0.5rem;
+    padding: 0.7rem;
     align-items: center;
+    border-radius: 8px;
 }
 
 .user-display {

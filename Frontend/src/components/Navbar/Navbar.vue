@@ -10,10 +10,14 @@ import { isLoggedIn, user } from '../../utility/status';
     <nav>
         <RouterLink to="/">Home</RouterLink>
 
-        <div class="user-display" v-if="isLoggedIn()">
-            <span>{{ user.username }}</span>
-            <button class="button-s" @click="logout">logout</button>
-        </div>
+        <template v-if="isLoggedIn()">
+            <RouterLink to="postquestion">Post question</RouterLink>
+            <div class="user-display">
+                <span>{{ user.username }}</span>
+                <button class="button-s" @click="logout">logout</button>
+            </div>
+        </template>
+
 
         <template v-else>
             <RouterLink to="/register">Register</RouterLink>

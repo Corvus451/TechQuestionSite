@@ -75,6 +75,16 @@ form {
         padding: 0.2rem;
     }
 
+    textarea {
+        background-color: transparent;
+        border: 1px solid #a2a2a2;
+        /* border: 1px solid #a2a2a2; */
+        /* border: 1px solid transparent; */
+        border-radius: 3px;
+        font-size: 1rem;
+        color: white;
+    }
+
     input:focus {
         /* border: 1px hidden; */
         /* border: 1px solid #a2a2a2; */

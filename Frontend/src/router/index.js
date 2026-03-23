@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import LoginPage from "../pages/LoginPage.vue";
+import CreateQuestion from "../pages/CreateQuestion.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
             name: 'login',
             component: LoginPage
         },
+        {
+            path: '/postquestion',
+            name: 'postquestion',
+            component: CreateQuestion
+        }
     ]
 });
 

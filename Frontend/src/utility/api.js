@@ -1,9 +1,9 @@
-import { user } from "./status";
+import { isLoggedIn, user } from "./status";
 
 export async function register(username, password) {
     try {
-        const resp = await fetch('/api/auth/register', {
-            method: 'PUT',
+        const resp = await fetch('/api/register', {
+            method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
@@ -13,8 +13,7 @@ export async function register(username, password) {
             })
         });
 
-        if(!resp.ok) {
-
+        if (!resp.ok) {
             return false;
         }
         const data = await resp.json();
@@ -22,7 +21,7 @@ export async function register(username, password) {
 
         alert("Registered successfully")
         return true;
-        
+
 
     } catch (error) {
         console.log(error)
@@ -31,7 +30,7 @@ export async function register(username, password) {
 
 export async function login(username, password) {
     try {
-        const resp = await fetch('/api/auth/login', {
+        const resp = await fetch('/api/login', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -42,19 +41,18 @@ export async function login(username, password) {
             }),
         });
 
-        if(!resp.ok) {
+        if (!resp.ok) {
             console.log("login not ok");
             return false;
         }
 
-        console.log("setting user data");
 
         const data = await resp.json();
         user.value = data.user;
 
         alert("Logged in successfully")
         return true;
-        
+
 
     } catch (error) {
         console.log(error)
@@ -67,7 +65,7 @@ export async function logout() {
             method: 'POST'
         });
 
-        if(!resp.ok) {
+        if (!resp.ok) {
             alert("error")
             return false;
         }
@@ -78,17 +76,20 @@ export async function logout() {
         return true;
 
     } catch (error) {
-        
+
     }
 }
 
 export async function authenticate() {
+    if (!isLoggedIn()) {
+        return;
+    }
     try {
         const resp = await fetch('/api/authenticate', {
             method: 'POST'
         });
 
-        if(!resp.ok) {
+        if (!resp.ok) {
 
         }
 
@@ -98,5 +99,38 @@ export async function authenticate() {
 
     } catch (error) {
         console.log(error)
+    }
+}
+
+export async function postQuestion(title, details) {
+    if (isLoggedIn() && title && details) {
+
+        const payload = JSON.stringify({
+            question: {
+                title,
+                details
+            }
+        });
+        try {
+            const resp = await fetch('/api/question', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: payload
+            });
+    
+            if (!resp.ok) {
+                alert("error")
+                return false;
+            }
+    
+            return true;
+
+        } catch (error) {
+            console.log(error)
+            return false;
+        }
+
     }
 }

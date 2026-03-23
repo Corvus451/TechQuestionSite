@@ -11,7 +11,6 @@ const timeout = ref(null);
 const ready = ref(false)
 
 const validate = () => {
-    console.log('validating')
     if(!username.value || !password.value || !confirm.value){
         errormsg.value = 'All fields must be filled';
         ready.value = false;
@@ -62,7 +61,7 @@ const handleRegister = () => {
                 <label for="confirm">Confirm password</label>
                 <input type="password" name="confirm" id="confirm" required v-model="confirm" @input="onInput">
             </div>
-            <button class="button-s" type="submit" :disabled="ready">Register</button>
+            <button class="button-s" type="submit" :disabled="!ready">Register</button>
         </form>
     </div>
 </template>

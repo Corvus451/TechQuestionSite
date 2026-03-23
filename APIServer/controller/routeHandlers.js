@@ -28,7 +28,7 @@ const register = async(req, res) => {
 
         const setCookies = result.headers.getSetCookie();
 
-        res.set('SetCookie', setCookies);
+        res.set('Set-Cookie', setCookies);
 
         res.status(201).json({
             message: result.message,

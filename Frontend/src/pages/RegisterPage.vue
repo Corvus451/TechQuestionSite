@@ -7,7 +7,7 @@ const router = useRouter();
 
 const handleRegister = async (username, password) => {
     if(username && password) {
-        success = await register(username, password)
+        const success = await register(username, password)
         if(success) {
             router.push('/');
         }

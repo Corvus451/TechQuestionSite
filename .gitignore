@@ -1,7 +1,7 @@
 .env
 node_modules
 secret.tfvars
-secret.auto.tfvars
+secrets.auto.tfvars
 .terraform
 terraform.tfstate*
 Terraform/.terraform.tfstate.lock.info

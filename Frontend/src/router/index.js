@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
-import HelloWorld from "../components/HelloWorld.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import LoginPage from "../pages/LoginPage.vue";
 
@@ -21,11 +20,6 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginPage
-        },
-        {
-            path: '/hello',
-            name: 'hello',
-            component: HelloWorld
         },
     ]
 });

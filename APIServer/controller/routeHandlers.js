@@ -60,7 +60,7 @@ const login = async(req, res) => {
 
         const setCookies = result.headers.getSetCookie();
 
-        res.set('SetCookie', setCookies);
+        res.set('Set-Cookie', setCookies);
 
         res.status(200).send(result.message);
 

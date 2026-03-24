@@ -10,7 +10,7 @@
 
 <template>
 
-    <div>
+    <div class="qlist">
         <Question v-for="question in questions" :key="question" :question="question" />
     </div>
 
@@ -18,5 +18,10 @@
 </template>
 
 <style>
+
+.qlist {
+    display: flex;
+    flex-direction: column;
+}
     
 </style>

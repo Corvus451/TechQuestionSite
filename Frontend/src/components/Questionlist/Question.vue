@@ -9,11 +9,15 @@ defineProps({
 
 <template>
 
-    <div class="qcard border-thin">
-        <div class="qcard-top">
+    <div class="qcard">
+        <div class="qctop">
+            <div class="qchead">
+                <span>username placeholder</span>
+                <span>{{ question.upvotes }}</span>
+            </div>
             <h3>{{ question.title }}</h3>
-            <span>{{ question.upvotes }}</span>
         </div>
+        <hr>
         <div class="qcard-main">
             <span>{{ question.details }}</span>
         </div>
@@ -23,30 +27,42 @@ defineProps({
 
 <style scoped>
 .qcard {
+    background-color: #252525;
     border-radius: 8px;
-    /* background-color: gray; */
     margin-left: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    /* padding: 0.5rem; */
-    /* max-width: 40%; */
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 0px 18px 5px black;
 
     h3 {
         margin: 0%;
         padding: 0%;
     }
+
+    hr {
+        width: 98%;
+        align-self: center;
+    }
 }
 
-.qcard-top {
+.qctop {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    background-color: #252525;
     border-radius: 8px 8px 0px 0px;
     padding: 0.5rem;
-    align-items: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.qchead {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    justify-items: space-between;
 }
 
 .qcard-main {

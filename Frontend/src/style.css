@@ -18,6 +18,11 @@
   cursor: pointer;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   padding: 0%;
   margin: 0%;
@@ -27,5 +32,4 @@ body {
   flex-direction: column;
   font-family: 'Ubuntu Sans Mono';
   background: linear-gradient(1deg,rgb(0, 42, 50) 0%, rgba(0, 0, 0, 1) 83%);
-  height: 100vh;
 }

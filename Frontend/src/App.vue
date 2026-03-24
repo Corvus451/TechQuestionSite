@@ -19,6 +19,13 @@ onMounted(() => {
 </template>
 
 <style>
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 :visited {
   color: white;
 }
@@ -30,7 +37,12 @@ onMounted(() => {
 
 .content {
   display: flex;
+  flex: 1;
+  overflow-y: auto;
   flex-direction: column;
+  overflow-y: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .register-container {

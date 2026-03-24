@@ -33,9 +33,12 @@ nav {
     gap: 2rem;
     background-color: #252525;
     margin: 0.5rem;
+    margin-bottom: 0;
     padding: 0.7rem;
     align-items: center;
     border-radius: 8px;
+    box-shadow: 0px 0px 18px 5px black;
+    z-index: 1;
 
     a {
         padding: 0.4rem;
